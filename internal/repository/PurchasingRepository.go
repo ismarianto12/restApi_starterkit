@@ -1,5 +1,4 @@
 // rian reposotory
-
 package repository
 
 import (
@@ -51,14 +50,11 @@ func (rep *PurchasingRepository) ShowByID(id int) (models.PurcashingModel, error
 	var modelnya models.PurcashingModel
 
 	if err := rep.DB.First(&modelnya, id).Error; err != nil {
-		return modelnya, nil
+		return modelnya, err
 	}
 	return modelnya, nil
 }
 
 func (rep *PurchasingRepository) DeleteById(id int) error {
-	if err := rep.DB.Delete(id).Error; err != nil {
-		return nil
-	}
-	return nil
+	return rep.DB.Delete(&models.PurcashingModel{}, id).Error
 }

@@ -6,6 +6,7 @@ import (
 	"rianRestApi/internal/models"
 	"rianRestApi/internal/repository"
 	"rianRestApi/utils"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -81,6 +82,52 @@ func (repo *PurchasingController) Upload(c *gin.Context) {
 			"path":     path,
 			"size":     header.Size,
 		},
+	})
+
+}
+func (repo *PurchasingController) Show(c *gin.Context) {
+	var data models.PurcashingModel
+	id, atoierr := strconv.Atoi(c.Param("id"))
+	if atoierr != nil {
+		c.JSON(400, gin.H{
+			"data":    atoierr,
+			"message": "error bang",
+		})
+		return
+	}
+
+	data, err := repo.rp.ShowByID(id)
+	if err != nil {
+		c.JSON(200, gin.H{
+			"message": "data tidak ditemukan",
+			"error":   err,
+		})
+		return
+	}
+	c.JSON(200, utils.SuccessResponse(data, 200, "data berhasil di temukan"))
+
+}
+
+func (repo *PurchasingController) Delete(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		c.JSON(200, gin.H{
+			"message": "data tidak ditemukan",
+			"error":   err,
+		})
+		return
+	}
+	errdel := repo.rp.DeleteById(id)
+	if errdel != nil {
+		c.JSON(200, gin.H{
+			"message": "gagal di hapus",
+			"error":   errdel,
+		})
+		return
+	}
+	c.JSON(200, gin.H{
+		"message": "berhasil di hapus",
+		"error":   errdel,
 	})
 
 }

@@ -22,6 +22,8 @@ func SetRoutingApps(r *gin.Engine, db *gorm.DB) {
 		api.GET("/purchasing/all", prc.Index)
 		api.GET("/purchasing/save", prc.SaveData)
 		api.GET("/purchasing/upload", prc.Upload)
+		api.GET("/purchasing/:id", prc.Show)
+		api.GET("/purchasing/delete/:id", prc.Delete)
 
 		api.GET("/cat/all", cat.All)
 
