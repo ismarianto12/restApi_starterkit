@@ -14,6 +14,7 @@ func main() {
 	db.AutoMigrate(&models.BarangModel{})
 	db.AutoMigrate(&models.CategoryBarang{})
 	db.AutoMigrate(&models.PurcashingModel{})
+	db.AutoMigrate(&models.UserModel{})
 
 	r := gin.Default()
 	route.SetRoutingApps(r, db)
