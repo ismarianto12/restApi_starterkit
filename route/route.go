@@ -13,6 +13,7 @@ func SetRoutingApps(r *gin.Engine, db *gorm.DB) {
 	cat := controller.NewCategoryController()
 	prc := controller.NewPurchasingController()
 	userctrl := controller.NewUserController()
+	home := controller.NewHomeController(db)
 
 	api := r.Group("/api")
 	{
@@ -32,6 +33,12 @@ func SetRoutingApps(r *gin.Engine, db *gorm.DB) {
 		api.GET("/purchasing/delete/:id", prc.Delete)
 
 		api.GET("/cat/all", cat.All)
+
+	}
+
+	tpl := r.Group("/home")
+	{
+		tpl.GET("/", home.Index)
 
 	}
 

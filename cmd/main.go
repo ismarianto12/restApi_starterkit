@@ -17,6 +17,8 @@ func main() {
 	db.AutoMigrate(&models.UserModel{})
 
 	r := gin.Default()
+	r.Static("/components", "./templates/components")
+
 	route.SetRoutingApps(r, db)
 	if err := r.Run(":6969"); err != nil {
 		log.Fatal("Erro coult not start server properly")

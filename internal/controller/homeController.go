@@ -1,8 +1,6 @@
 package controller
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
 
 	"gorm.io/gorm"
@@ -17,6 +15,5 @@ func NewHomeController(db *gorm.DB) *HomeController {
 }
 
 func (HomeController) Index(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"message": "Hello from BarangController"})
-
+	c.File("templates/index.html")
 }
